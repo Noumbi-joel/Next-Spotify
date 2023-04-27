@@ -17,6 +17,7 @@ type Props = {};
 
 const Sidebar = (props: Props) => {
   const { data: session, status } = useSession();
+  console.log(session, status);
   return (
     <header className="text-gray-500 p-5 text-sm border-r border-gray-900">
       <div className="space-y-4">
