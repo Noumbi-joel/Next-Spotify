@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // icons
 import {
@@ -10,16 +10,26 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/outline";
 
+// recoil
+import { useRecoilState } from "recoil";
+import { playlistIdState } from "@/atoms/playlistAtom";
+
 // auth
 import { signOut, useSession } from "next-auth/react";
+
+// hooks
+import usePlaylists, { IPlaylist } from "@/hooks/usePlaylists";
 
 type Props = {};
 
 const Sidebar = (props: Props) => {
   const { data: session, status } = useSession();
-  console.log(session, status);
+  const playlists = usePlaylists();
+  const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
+
+  console.log("You picked playlist >>> ", playlistId);
   return (
-    <header className="text-gray-500 p-5 text-sm border-r border-gray-900">
+    <header className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen">
       <div className="space-y-4">
         <button
           onClick={() => signOut()}
@@ -56,15 +66,15 @@ const Sidebar = (props: Props) => {
         <hr className="border-t-[0.1px] border-gray-900" />
 
         {/* Playlist... */}
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
-        <p className="cursor-pointer hover:text-white">Playlist name...</p>
+        {playlists?.map((playlist: IPlaylist) => (
+          <p
+            key={playlist?.id}
+            className="cursor-pointer hover:text-white"
+            onClick={() => setPlaylistId(playlist?.id)}
+          >
+            {playlist.name}
+          </p>
+        ))}
       </div>
     </header>
   );
