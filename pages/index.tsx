@@ -1,5 +1,5 @@
 // comp
-import { Center, HeadTitle, Sidebar } from "@/components";
+import { Center, HeadTitle, Player, Sidebar } from "@/components";
 
 export default function Home() {
   return (
@@ -11,8 +11,8 @@ export default function Home() {
         <Center />
       </main>
 
-      <div>
-        {/* player */}
+      <div className="sticky bottom-0">
+        <Player />
       </div>
     </div>
   );

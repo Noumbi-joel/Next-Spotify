@@ -23,20 +23,14 @@ import usePlaylists, { IPlaylist } from "@/hooks/usePlaylists";
 type Props = {};
 
 const Sidebar = (props: Props) => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const playlists = usePlaylists();
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState);
 
   console.log("You picked playlist >>> ", playlistId);
   return (
-    <header className="text-gray-500 p-5 text-sm border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen">
+    <header className="text-gray-500 p-5 text-xs border-r border-gray-900 overflow-y-scroll scrollbar-hide h-screen lg:text-sm sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex">
       <div className="space-y-4">
-        <button
-          onClick={() => signOut()}
-          className="flex items-center space-x-2 hover:text-white"
-        >
-          <p>Log out</p>
-        </button>
         <button className="flex items-center space-x-2 hover:text-white">
           <HomeIcon className="h-5 w-5" />
           <p>Home</p>
